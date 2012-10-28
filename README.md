@@ -1,7 +1,7 @@
 ofxFACTLiverpoolScreen
 ======================
 
-ofxFACTLiverpoolScreen is a Openframeworks addon for send pixels in FACT facade 
+ofxFACTLiverpoolScreen is a Openframeworks addon for send pixels in FACT facade. 
 
 Credits: The library was develop by the artist Mar Canet (mar.canet@gmail.com - http://mcanet.info) 
 
