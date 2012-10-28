@@ -165,3 +165,29 @@ void ofxFACTLiverpoolScreen::captureScreen(int x, int y)
 	}
 }
 //--------------------------------------------------------------
+
+void ofxFACTLiverpoolScreen::captureFullScreen()
+{
+    if( ofGetElapsedTimeMillis()-lastSendFrame > frameRateMillis ){
+        int factorX = 50;
+        int factorY = 50;
+        myScreen.grabScreen(0,0, ofGetWidth(), ofGetHeight());
+        myScreen.resize(50, 50);
+        for(int i=0;i<50;i++)
+        {
+            for(int j=0;j<50;j++)
+            {
+                int id = (i*3)+(j*50*3);
+                int address = i+(j*50);
+                frameBuffer[address].r = myScreen.getPixels()[id];
+                frameBuffer[address].g = myScreen.getPixels()[id+1];
+                frameBuffer[address].b = myScreen.getPixels()[id+2];
+            }
+        }
+        flush();
+        lastSendFrame = ofGetElapsedTimeMillis();
+    }
+}
+//--------------------------------------------------------------
+
+

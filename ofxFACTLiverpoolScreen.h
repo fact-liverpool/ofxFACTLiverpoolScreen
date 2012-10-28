@@ -87,6 +87,7 @@ public:
 	 */
 	
 	void captureScreen(int x=0, int y=0);
+	void captureFullScreen();
 	//--------------------------------------------------------------
 	/**
 	 * setIp from server of FACADE
