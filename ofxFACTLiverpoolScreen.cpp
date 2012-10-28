@@ -120,6 +120,8 @@ void ofxFACTLiverpoolScreen::flush()
 
 void ofxFACTLiverpoolScreen::receive()
 {
+	//myUDPManagerReceiver->GetRemoteAddr("192.168.0.221");
+
 	if(myUDPManagerReceiver->GetReceiveBufferSize()>0){
 		int total = myUDPManagerReceiver->Receive((char *)&frameBuffer, sizeof(Packet) * 2500 );
 		if(total>0){
@@ -144,15 +146,14 @@ bool ofxFACTLiverpoolScreen::isReceivingPixels()
 void ofxFACTLiverpoolScreen::captureScreen(int x, int y)
 {
 	if( ofGetElapsedTimeMillis()-lastSendFrame > frameRateMillis ){
-		myScreen.grabScreen(0, 0, ofGetWidth(), ofGetHeight()); 
-		int factorX = ofGetWidth()/50;
-		int factorY = ofGetHeight()/50;
-	
+		int factorX = 50;
+		int factorY = 50;
+        myScreen.grabScreen(x, y, factorX, factorY); 
 		for(int i=0;i<50;i++)
 		{
 			for(int j=0;j<50;j++)
 			{
-				int id = (i*factorX*3)+(j*factorY*50*3);
+				int id = (i*3)+(j*50*3);
 				int address = i+(j*50);
 				frameBuffer[address].r = myScreen.getPixels()[id];
 				frameBuffer[address].g = myScreen.getPixels()[id+1];
@@ -160,6 +161,7 @@ void ofxFACTLiverpoolScreen::captureScreen(int x, int y)
 			}
 		}
 		flush();
+        lastSendFrame = ofGetElapsedTimeMillis();
 	}
 }
 //--------------------------------------------------------------
